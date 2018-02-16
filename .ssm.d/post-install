@@ -1,0 +1,10 @@
+#!/bin/bash
+domainHome=$1
+packageHome=$2
+profileDirPath=${packageHome}/etc/profile.d
+packageName=${packageHome##*/}
+profilePath=${profileDirPath}/${packageName}.sh
+mkdir -p ${profileDirPath}
+#echo "#${packageName%%_*}_HOME=${packageHome}" >> ${profilePath}
+echo "[[ -n ${PERL5LIB} ]] && export PERL5LIB=${PERL5LIB}:${packageHome}/lib/perl5/site_perl" > ${profilePath}
+echo "[[ -z ${PERL5LIB} ]] && export PERL5LIB=${packageHome}/lib/perl5/site_perl" >> ${profilePath}
